@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+    function enviar(){
+        var nombre = document.getElementById('txtNom').value;
+        var paterno = document.getElementById('txtPat').value;
+        var materno = document.getElementById('txtMat').value;
+        var correo = document.getElementById('txtCorreo').value;
+        var telefono = document.getElementById('txtTelefono').value;
+        $.post("crudUsuarios.php",
+            {id:"",
+             nom:nombre,
+             pat:paterno,
+             mat:materno,
+             cor:correo,
+             tel:telefono,
+             sta:1,
+             rol:0,
+             operacion:0 
+            },
+            function (resultado){
+                alert(resultado);
+            }
+        );
+    }
+    function consultar(){
+        $.post("crudUsuarios.php",
+            {id:"",
+             nom:"",
+             pat:"",
+             mat:"",
+             cor:"",
+             tel:"",
+             rol:0,
+             sta:1,
+             operacion:2
+            },
+            function(resultado){
+                var json = JSON.parse(resultado);
+                //alert(json);
+                console.log(json.length);
+            }
+        );
+    }
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><label for="txtNom">Nombre:</label></td>
+            <td><input type="text" id="txtNom"/></td>
+        </tr>
+        <tr>
+            <td><label for="txtPat">Paterno:</label></td>
+            <td><input type="text" id="txtPat"/></td>
+        </tr>
+        <tr>
+            <td><label for="txtMat">Paterno:</label></td>
+            <td><input type="text" id="txtMat"/></td>
+        </tr>
+        <tr>
+            <td><label for="txtCorreo">Correo:</label></td>
+            <td><input type="text" id="txtCorreo"/></td>
+        </tr>
+        <tr>
+            <td><label for="txtTelefono">Telefono:</label></td>
+            <td><input type="text" id="txtTelefono"/></td>
+        </tr>
+    </table>
+    <br>
+    <input type="button" id="btnEnviar" onclick="enviar()" value="Enviar">
+    <input type="button" id="btnEnviar" onclick="consultar()" value="Consultar">
+</body>
+</html>
